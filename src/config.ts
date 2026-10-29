@@ -14,6 +14,7 @@ export interface Settings {
   autoRate: number;
   demo: boolean;
   reward: string;
+  boostReward: string;
   hypeCount: number;
   bitsPerObstacle: number;
   upper: number;
@@ -30,6 +31,7 @@ export const defaults: Settings = {
   autoRate: 7,
   demo: new URLSearchParams(location.search).get("demo") === "1",
   reward: "Drop an obstacle",
+  boostReward: "Boost my ghost",
   hypeCount: 5,
   bitsPerObstacle: 100,
   upper: -0.35,

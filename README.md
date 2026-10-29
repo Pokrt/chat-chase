@@ -47,9 +47,10 @@ EventSub handles keepalives, watchdog reconnects, reconnect URL transfer, revoca
 | Cheer | 1 obstacle per 100 bits by default, maximum 3 |
 | Subscribe / gift sub | Give the streamer a shield, maximum 1 held |
 | Reward “Drop an obstacle” | Queue a wall; bypass viewer cooldown |
+| Reward “Boost my ghost” | Boost the redeeming viewer’s ghost for 4 s |
 | 5 accepted obstacle events in 30 s | 20 s of double-distance Sprint Zone |
 
-Settings include reward title, bits per obstacle, hype threshold, role restriction, run/rest lengths, spacing, intensity and demo event frequency. All obstacles, including paid events and redemptions, pass through the same caps. No rewards are automatically created in the Twitch account.
+Settings include obstacle and ghost-boost reward titles, bits per obstacle, hype threshold, role restriction, run/rest lengths, spacing, intensity and demo event frequency. All obstacles, including paid events and redemptions, pass through the same caps. No rewards are automatically created in the Twitch account.
 
 ## OBS
 

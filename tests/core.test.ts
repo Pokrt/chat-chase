@@ -287,3 +287,21 @@ describe("jump ascent timing", () => {
     expect(d.update(lifted(0.3, 1600)).events).toContain("jump");
   });
 });
+
+it("channel-point boost targets the redeeming viewer through the frozen effect queue", () => {
+  const q = new EffectQueue({ ...options, boostReward: "Boost my ghost" });
+  const g = new Game();
+  g.start();
+  g.effect({ kind: "join", id: "fan", name: "fan" });
+  expect(
+    q.ingest(
+      { type: "redemption", id: "fan", name: "fan", reward: "Boost my ghost" },
+      0,
+    ).accepted,
+  ).toBe(true);
+  expect(q.drain(0, true)).toHaveLength(0);
+  for (const e of q.drain(0, false)) g.effect(e);
+  tick(g, 1);
+  expect(g.ghosts[0].distance).toBeGreaterThan(g.ghosts[0].pace);
+  expect(q.history).toHaveLength(0);
+});

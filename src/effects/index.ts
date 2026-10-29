@@ -17,6 +17,7 @@ export interface EffectOptions {
   spacing: number;
   restricted: boolean;
   reward: string;
+  boostReward?: string;
   hypeCount: number;
   bitsPerObstacle: number;
 }
@@ -74,6 +75,13 @@ export class EffectQueue {
       e.reward?.toLowerCase() === this.options.reward.toLowerCase()
     )
       effects = [make("wall")];
+    if (
+      e.type === "redemption" &&
+      this.options.boostReward &&
+      e.reward?.toLowerCase() === this.options.boostReward.toLowerCase()
+    ) {
+      effects = [make("boost")];
+    }
     if (!effects.length) return { accepted: false, message: "" };
     let dropped = false;
     for (const effect of effects) {

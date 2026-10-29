@@ -3,7 +3,7 @@
 ## Completed locally
 
 - Strict TypeScript check and Vite production build.
-- 33 Vitest checks: obstacle caps across mixed sources, spacing, viewer cooldowns, bounded queue, role gates, pause, hype, collision timing, shield, rest, ghost races, double points, calibration visibility, synthetic running/jump/squat regression fixtures, event mapping, OAuth state mismatch, EventSub subscribe failure isolation, notification deduplication, reconnect transfer, keepalive watchdog and output throttle.
+- 34 Vitest checks: obstacle caps across mixed sources, spacing, viewer cooldowns, bounded queue, role gates, pause, hype, collision timing, shield, rest, ghost races, double points, calibration visibility, synthetic running/jump/squat regression fixtures, event mapping, OAuth state mismatch, EventSub subscribe failure isolation, notification deduplication, reconnect transfer, keepalive watchdog and output throttle.
 - Chrome browser interaction checks: start, keyboard running (distance advances), demo join, shield effect, paused timer, effects held while paused, controls open/close, no horizontal desktop overflow.
 - Independent visual review of the 1440×1100 idle state: ship. Singular “1 RUNNER” label corrected.
 - Dependency security audit after updating the test runner: zero reported vulnerabilities at build time.
@@ -28,3 +28,7 @@ This CLI release rejects `channel.chat.message` v1 because it predates that subs
 ## Jump timing audit
 
 Ascent timing now begins when both ankles leave the near-ground band, rather than being reset on every frame below the final jump threshold. Slow drift above 300 ms is rejected, each accepted jump requires landing before rearming, and a lost pose cannot reappear airborne and synthesize a jump. Three regression tests cover these cases. All 33 tests and the strict production build pass. This does not substitute for real-camera accuracy measurement.
+
+## Ghost reward audit
+
+Added the configurable “Boost my ghost” channel-point reward from section 7.4. Redemption identifies the viewer by Twitch user ID and uses the same bounded, pause-aware queue. A regression test proves that a paused redemption remains queued, then boosts only its matching ghost without consuming an obstacle slot. All 34 tests and the strict production build pass.

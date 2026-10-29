@@ -22,6 +22,7 @@ const queue = new EffectQueue({
   spacing: settings.spacing,
   restricted: settings.restricted,
   reward: settings.reward,
+  boostReward: settings.boostReward,
   hypeCount: settings.hypeCount,
   bitsPerObstacle: settings.bitsPerObstacle,
 });
@@ -90,7 +91,7 @@ document.querySelector("#app")!.innerHTML = `
   .map((p) => `<option>${p}</option>`)
   .join(
     "",
-  )}</select></label><p id="capLabel"></p><label>Run length (seconds)<input id="duration" type="number" min="30" max="1800"></label><label>Rest break (seconds, minimum 30)<input id="rest" type="number" min="30" max="600"></label><label>Obstacle spacing (seconds, minimum 2.5)<input id="spacing" type="number" min="2.5" max="30" step=".5"></label><label class="check"><input id="restricted" type="checkbox"> Obstacles: subs, VIPs and mods only</label><label class="check"><input id="chatOutput" type="checkbox"> Post run updates to Twitch chat</label><label class="check"><input id="autoChat" type="checkbox"> Automatic demo chat</label><label>Demo event interval (seconds)<input id="autoRate" type="number" min="2" max="60"></label><label>Channel point reward title<input id="reward" maxlength="100"></label><label>Bits per obstacle<input id="bitsPerObstacle" type="number" min="1" max="10000"></label><label>Obstacle events for hype (30 seconds)<input id="hypeCount" type="number" min="2" max="30"></label><details><summary>Motion tuning & recording</summary><label>Knee lift upper threshold<input id="upper" type="number" step=".05" min="-1" max="1"></label><label>Knee lift lower threshold<input id="lower" type="number" step=".05" min="-2" max="0"></label><button id="record">Record landmarks</button><button id="download">Save last 30 seconds</button><label>Replay landmark JSON<input type="file" id="replay" accept=".json"></label><button id="stopCamera">Stop webcam / use keyboard</button></details><button id="disconnect">Disconnect Twitch</button><h3>Connection log</h3><pre id="logs">No Twitch connection yet.</pre></aside>
+  )}</select></label><p id="capLabel"></p><label>Run length (seconds)<input id="duration" type="number" min="30" max="1800"></label><label>Rest break (seconds, minimum 30)<input id="rest" type="number" min="30" max="600"></label><label>Obstacle spacing (seconds, minimum 2.5)<input id="spacing" type="number" min="2.5" max="30" step=".5"></label><label class="check"><input id="restricted" type="checkbox"> Obstacles: subs, VIPs and mods only</label><label class="check"><input id="chatOutput" type="checkbox"> Post run updates to Twitch chat</label><label class="check"><input id="autoChat" type="checkbox"> Automatic demo chat</label><label>Demo event interval (seconds)<input id="autoRate" type="number" min="2" max="60"></label><label>Channel point reward title<input id="reward" maxlength="100"></label><label>Ghost boost reward title<input id="boostReward" maxlength="100"></label><label>Bits per obstacle<input id="bitsPerObstacle" type="number" min="1" max="10000"></label><label>Obstacle events for hype (30 seconds)<input id="hypeCount" type="number" min="2" max="30"></label><details><summary>Motion tuning & recording</summary><label>Knee lift upper threshold<input id="upper" type="number" step=".05" min="-1" max="1"></label><label>Knee lift lower threshold<input id="lower" type="number" step=".05" min="-2" max="0"></label><button id="record">Record landmarks</button><button id="download">Save last 30 seconds</button><label>Replay landmark JSON<input type="file" id="replay" accept=".json"></label><button id="stopCamera">Stop webcam / use keyboard</button></details><button id="disconnect">Disconnect Twitch</button><h3>Connection log</h3><pre id="logs">No Twitch connection yet.</pre></aside>
 <div id="debug" hidden><h3>Motion signals</h3><pre id="signals"></pre><canvas id="graph" width="440" height="90"></canvas></div><div id="toast" role="status" hidden></div>`;
 const canvas = $<HTMLCanvasElement>("game"),
   video = $<HTMLVideoElement>("video");
@@ -339,6 +340,7 @@ for (const key of [
   "autoChat",
   "autoRate",
   "reward",
+  "boostReward",
   "hypeCount",
   "bitsPerObstacle",
   "upper",
@@ -378,6 +380,7 @@ for (const key of [
       spacing: settings.spacing,
       restricted: settings.restricted,
       reward: settings.reward,
+      boostReward: settings.boostReward,
       hypeCount: settings.hypeCount,
       bitsPerObstacle: settings.bitsPerObstacle,
     });
