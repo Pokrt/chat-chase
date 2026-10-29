@@ -104,6 +104,7 @@ export class Detector {
   lastVisible = -Infinity;
   squat = false;
   riseStart: number | null = null;
+  jumpReady = true;
   constructor(
     public baseline: Baseline,
     public thresholds = {
@@ -118,6 +119,8 @@ export class Detector {
     const events: MotionEvent[] = [];
     const ok = visible(f.points);
     if (!ok) {
+      this.riseStart = null;
+      this.jumpReady = false;
       this.steps = this.steps.filter((t) => f.t - t < 3000);
       return {
         cadence: 0,
@@ -149,12 +152,23 @@ export class Detector {
     });
     this.steps = this.steps.filter((t) => f.t - t <= 3000);
     const cadence = this.steps.length * 20;
-    const raised =
-      (b.leftAnkle - m.leftAnkle) / b.scale > 0.25 &&
-      (b.rightAnkle - m.rightAnkle) / b.scale > 0.25;
-    if (!raised) this.riseStart = f.t;
+    const leftRise = (b.leftAnkle - m.leftAnkle) / b.scale;
+    const rightRise = (b.rightAnkle - m.rightAnkle) / b.scale;
+    const raised = leftRise > 0.25 && rightRise > 0.25;
+    // Time the ascent from leaving the ground, not the last sub-threshold frame.
+    if (leftRise <= 0.05 || rightRise <= 0.05) {
+      this.riseStart = null;
+      this.jumpReady = true;
+    } else if (this.jumpReady && this.riseStart === null) {
+      this.riseStart = f.t;
+    }
+    if (this.riseStart !== null && f.t - this.riseStart > 300) {
+      this.jumpReady = false;
+      this.riseStart = null;
+    }
     if (
       raised &&
+      this.jumpReady &&
       this.riseStart !== null &&
       f.t - this.riseStart <= 300 &&
       m.kneeAngle >= 120 &&
@@ -162,6 +176,7 @@ export class Detector {
     ) {
       events.push("jump");
       this.lastJump = f.t;
+      this.jumpReady = false;
       this.riseStart = null;
     }
     const squat = (m.hip - b.hip) / b.scale > 0.35 && m.kneeAngle < 120;

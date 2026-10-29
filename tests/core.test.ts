@@ -249,3 +249,41 @@ describe("Twitch event mapping", () => {
       expect(mapNotification(type, {} as any)?.type).toBe(expected);
   });
 });
+
+describe("jump ascent timing", () => {
+  const lifted = (rise: number, t: number) => {
+    const points = structuredClone(jumping.frames[0].points);
+    for (const i of [11, 12, 23, 24, 25, 26, 27, 28])
+      points[i].y -= rise * jumping.baseline.scale;
+    return { t, points };
+  };
+  it("rejects a slow upward drift taking more than 300 ms", () => {
+    const d = new Detector(jumping.baseline);
+    const events = [
+      lifted(0, 0),
+      lifted(0.1, 100),
+      lifted(0.18, 300),
+      lifted(0.23, 450),
+      lifted(0.3, 600),
+    ].flatMap((f) => d.update(f).events);
+    expect(events).not.toContain("jump");
+  });
+  it("requires a landing before another jump even after the refractory interval", () => {
+    const d = new Detector(jumping.baseline);
+    const events = [
+      lifted(0, 0),
+      lifted(0.3, 100),
+      lifted(0.3, 800),
+      lifted(0.3, 1000),
+    ].flatMap((f) => d.update(f).events);
+    expect(events.filter((e) => e === "jump")).toHaveLength(1);
+  });
+  it("cannot create a jump when a person reappears already airborne", () => {
+    const d = new Detector(jumping.baseline);
+    d.update(lifted(0, 0));
+    d.update({ t: 100, points: [] });
+    expect(d.update(lifted(0.3, 1200)).events).not.toContain("jump");
+    d.update(lifted(0, 1500));
+    expect(d.update(lifted(0.3, 1600)).events).toContain("jump");
+  });
+});
