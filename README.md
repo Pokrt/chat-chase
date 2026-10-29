@@ -4,7 +4,9 @@
 
 Run in place, jump over walls and squat under bars. Your webcam drives the runner. Twitch chat brings obstacles, shields and ghost racers. No backend, database, client secret or extra hardware.
 
-![Chat Chase desktop interface](preview.png)
+![Chat Chase local keyboard demo](demo.gif)
+
+[View the full desktop interface](preview.png) · [Watch the local gameplay preview](demo.mp4)
 
 ## Play in a minute
 
