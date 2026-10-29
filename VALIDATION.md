@@ -32,3 +32,7 @@ Ascent timing now begins when both ankles leave the near-ground band, rather tha
 ## Ghost reward audit
 
 Added the configurable “Boost my ghost” channel-point reward from section 7.4. Redemption identifies the viewer by Twitch user ID and uses the same bounded, pause-aware queue. A regression test proves that a paused redemption remains queued, then boosts only its matching ghost without consuming an obstacle slot. All 34 tests and the strict production build pass.
+
+## Design refinement
+
+Refined the existing midnight/orange/mint broadcast identity with a compact desktop scoreboard, separate scrolling pack list, viewer initials, larger warnings, a layered sunset track and more detailed runner. Checked desktop at 1440 and 1920 pixels and narrow resilience at 390 pixels with no horizontal overflow. Independent desktop visual review: ship. Follow-up review scored clustered ghost nameplates and ordered narrow-screen distance markers resolved. Browser race check confirmed movement, five viewer initials, and an incoming sender warning. All 34 tests and strict production build passed after the changes; gameplay rules were preserved.

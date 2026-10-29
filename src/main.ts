@@ -62,7 +62,7 @@ const icon = (path: string) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">${path}</svg>`;
 const pauseIcon = icon('<path d="M8 5v14M16 5v14"/>');
 document.querySelector("#app")!.innerHTML = `
-<header><a class="wordmark" href="/" aria-label="Chat Chase home">CHAT<span>CHASE</span><i>↗</i></a><span class="tagline">Chat throws it. You dodge it.</span><div class="header-actions"><span class="connection" id="connection">LOCAL / OFFLINE</span><button id="connect">Connect Twitch ${icon('<path d="m9 5 7 7-7 7"/>')}</button><button id="controls" class="square" aria-label="Open controls" title="Controls (backtick)">${icon('<path d="M4 7h16M4 17h16M8 4v6M16 14v6"/>')}</button></div></header>
+<header><a class="wordmark" href="/" aria-label="Chat Chase home">CHAT<span>CHASE</span><i>${icon('<path d="M4 12h16m-6-6 6 6-6 6"/>')}</i></a><span class="tagline">Chat throws it. You dodge it.</span><div class="header-actions"><span class="connection" id="connection">LOCAL / OFFLINE</span><button id="connect">Connect Twitch ${icon('<path d="m9 5 7 7-7 7"/>')}</button><button id="controls" class="square" aria-label="Open controls" title="Controls (backtick)">${icon('<path d="M4 7h16M4 17h16M8 4v6M16 14v6"/>')}</button></div></header>
 <main><div class="race-heading"><div><span class="live-dot"></span><h1>THE CHAT CHASE</h1><span class="mode-label" id="modeLabel">KEYBOARD MODE</span></div><div class="session">MOVE AT YOUR PACE. <strong>CHAT CAN WAIT.</strong></div></div>
 <section class="top-grid"><div class="camera-panel"><div class="panel-label"><span>YOUR CORNER</span><span id="cameraState">CAMERA OFF</span></div><video id="video" muted playsinline></video><canvas id="skeleton"></canvas><div id="cameraEmpty" class="camera-empty"><div class="viewfinder">${icon('<path d="M3 8V3h5m8 0h5v5m0 8v5h-5M8 21H3v-5"/><circle cx="12" cy="9" r="3"/><path d="M6 19c0-6 12-6 12 0"/>')}</div><h2>Make your move.</h2><p>Your body is the controller.<br>Step back, give yourself some room.</p><button class="primary" id="camera">Enable webcam ${icon('<path d="M5 12h14m-5-5 5 5-5 5"/>')}</button><small>Or try it with your keyboard ↓</small></div><div class="camera-bottom"><span id="motionStatus">READY WHEN YOU ARE</span><button id="recalibrate" class="text-button" hidden>Recalibrate</button></div></div>
 <div class="race-info"><div class="telemetry"><div><span class="label">DISTANCE</span><div class="distance"><span id="distance">0</span><small>m</small></div></div><div class="time"><span class="label">TIME LEFT</span><strong id="timer">03:00</strong><div class="time-track"><i id="timebar"></i></div></div></div><div class="pace"><div><span class="label">YOUR PACE</span><strong id="cadence">0 <small>SPM</small></strong></div><div class="pace-bars">${Array.from({ length: 24 }, (_, i) => `<i style="--i:${i}"></i>`).join("")}</div><span id="paceState">IDLE</span></div><div class="leaderboard"><div class="panel-label"><span>THE PACK</span><span id="racerCount">1 RUNNER</span></div><div id="leaders"></div><p class="join-note">Chat, type <b>!join</b> to get in the race.</p></div></div></section>
@@ -542,7 +542,11 @@ function updateUI(cadence: number) {
     n.textContent = r.name + (r.id === "streamer" ? " / YOU" : "");
     const d = document.createElement("strong");
     d.textContent = Math.floor(r.distance) + " m";
-    row.append(rank, n, d);
+    const avatar = document.createElement("i");
+    avatar.className = "leader-avatar";
+    avatar.setAttribute("aria-hidden", "true");
+    avatar.textContent = r.name.slice(0, 1).toUpperCase();
+    row.append(rank, avatar, n, d);
     leaders.append(row);
   });
   $("queueCount").textContent = queue.pending.length + " QUEUED";

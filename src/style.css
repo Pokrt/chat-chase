@@ -70,7 +70,7 @@ svg {
   display: none !important;
 }
 header {
-  height: 84px;
+  height: 76px;
   border-bottom: 1px solid var(--line);
   display: flex;
   align-items: center;
@@ -105,7 +105,7 @@ header {
   gap: 12px;
 }
 .connection {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   color: var(--mint);
   margin-right: 12px;
@@ -139,13 +139,13 @@ h1 {
 .mode-label {
   border: 1px solid #52605d;
   padding: 5px 7px;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   color: var(--mint);
   border-radius: 3px;
 }
 .session {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   color: var(--muted);
 }
@@ -154,15 +154,15 @@ h1 {
   color: #f4f0e5;
 }
 main {
-  max-width: 1720px;
+  max-width: 1840px;
   margin: auto;
   padding: 0 3.3%;
 }
 .top-grid {
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
+  grid-template-columns: 0.72fr 1.28fr;
   gap: 25px;
-  height: 355px;
+  height: 286px;
 }
 .camera-panel {
   position: relative;
@@ -174,7 +174,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   color: var(--muted);
 }
@@ -219,7 +219,7 @@ h2 {
   margin: 9px 0 6px;
 }
 .camera-empty p {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.6;
   color: var(--muted);
   margin: 0 0 15px;
@@ -229,7 +229,7 @@ h2 {
 }
 .camera-empty small {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 11px;
   margin-top: 10px;
 }
 .camera-bottom {
@@ -240,7 +240,7 @@ h2 {
   background: #182125e8;
   min-height: 36px;
   padding: 10px 18px;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   display: flex;
   justify-content: space-between;
@@ -249,12 +249,15 @@ h2 {
 .text-button {
   border: 0;
   padding: 0;
-  font-size: 10px;
+  font-size: 11px;
   color: var(--mint);
 }
 .race-info {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 0 30px;
+  min-width: 0;
 }
 .telemetry {
   display: flex;
@@ -262,13 +265,13 @@ h2 {
   padding: 2px 0 13px;
 }
 .label {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.13em;
   color: var(--muted);
 }
 .distance {
   font-family: "Barlow Condensed", sans-serif;
-  font-size: 72px;
+  font-size: 96px;
   line-height: 1;
   letter-spacing: -0.02em;
   margin-top: 4px;
@@ -284,7 +287,7 @@ h2 {
 }
 .time strong {
   font-family: "Barlow Condensed", sans-serif;
-  font-size: 47px;
+  font-size: 52px;
   display: block;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -305,7 +308,7 @@ h2 {
   display: flex;
   align-items: center;
   gap: 20px;
-  border-block: 1px solid var(--line);
+  border-top: 1px solid var(--line);
   padding: 12px 0;
 }
 .pace strong {
@@ -335,22 +338,64 @@ h2 {
   background: var(--mint);
 }
 #paceState {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--mint);
   letter-spacing: 0.08em;
   min-width: 62px;
   text-align: right;
 }
 .leaderboard {
-  padding-top: 16px;
-  overflow: auto;
+  grid-column: 2;
+  grid-row: 1 / 3;
+  min-height: 0;
+  padding: 18px 20px;
+  background: #192328;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
+#leaders {
+  overflow: auto;
+  margin-top: 12px;
+  flex: 1;
+  min-height: 0;
+}
+.leaderboard .join-note {
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.leaderboard .panel-label {
+  color: #ecede1;
+  font-size: 12px;
+}
+.leaderboard .panel-label span:last-child {
+  color: var(--muted);
+  font-size: 10px;
+}
+.leader-avatar {
+  width: 27px;
+  height: 27px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #31433f;
+  color: #cbe2d3;
+  font-size: 12px;
+  flex-shrink: 0;
+  font-weight: 600;
+}
+.leader.you .leader-avatar {
+  background: var(--orange);
+  color: #171d1b;
+}
+
 .leader {
   display: flex;
-  gap: 17px;
+  gap: 10px;
   align-items: center;
   padding: 9px 10px;
-  font-size: 12px;
+  font-size: 13px;
   border-bottom: 1px solid #283338;
 }
 .leader > span {
@@ -359,15 +404,17 @@ h2 {
   color: var(--muted);
 }
 .leader b {
+  font-size: 14px;
   font-weight: 400;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .leader strong {
+  font-family: "Barlow Condensed", sans-serif;
   margin-left: auto;
   white-space: nowrap;
-  font-size: 12px;
+  font-size: 13px;
   font-variant-numeric: tabular-nums;
 }
 .leader.you {
@@ -384,7 +431,7 @@ h2 {
   font-weight: 400;
 }
 .game-panel {
-  margin-top: 24px;
+  margin-top: 20px;
   border-radius: 10px;
   overflow: hidden;
   background: #1b272d;
@@ -402,12 +449,12 @@ h2 {
   align-items: center;
 }
 .track-label {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   color: #b8c5c5;
 }
 .badge {
-  font-size: 9px;
+  font-size: 11px;
   border: 1px solid #4e605d;
   color: #afc0b8;
   border-radius: 3px;
@@ -419,7 +466,7 @@ h2 {
   border-color: var(--mint);
 }
 #warning {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
 }
 #warning.urgent {
@@ -430,7 +477,7 @@ h2 {
 #game {
   display: block;
   width: 100%;
-  height: 290px;
+  height: clamp(330px, 38vh, 440px);
 }
 .game-bottom {
   display: flex;
@@ -440,7 +487,7 @@ h2 {
   gap: 12px;
 }
 .keyboard-help {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.07em;
   color: var(--muted);
   display: flex;
@@ -469,17 +516,17 @@ kbd {
   display: flex;
   gap: 20px;
   align-items: center;
-  min-height: 54px;
+  min-height: 58px;
   border-bottom: 1px solid var(--line);
 }
 .ticker > span {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   white-space: nowrap;
   color: var(--orange);
 }
 .ticker p {
-  font-size: 12px;
+  font-size: 13px;
   flex: 1;
   color: #d4ded5;
 }
@@ -531,7 +578,7 @@ footer {
   justify-content: space-between;
   padding: 15px 0 22px;
   border-top: 1px solid var(--line);
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   color: #9baead;
 }
@@ -555,7 +602,7 @@ footer {
   font-size: 30px;
 }
 #panel p {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
   line-height: 1.6;
 }
@@ -564,7 +611,7 @@ footer {
   flex-direction: column;
   gap: 7px;
   margin: 18px 0;
-  font-size: 12px;
+  font-size: 13px;
   color: #d7e1db;
 }
 #panel input:not([type="checkbox"]),
@@ -580,7 +627,7 @@ select {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
+  font-size: 13px;
   margin: 16px 0;
 }
 details {
@@ -624,50 +671,248 @@ pre {
 input {
   caret-color: var(--orange);
 }
-@media (min-width: 1600px) {
+
+/* Broadcast details: the race is the primary surface. */
+.wordmark {
+  font-size: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.wordmark i {
+  display: inline-flex;
+  margin-left: 12px;
+  transform: rotate(-35deg);
+}
+.wordmark i svg {
+  width: 32px;
+  height: 32px;
+}
+.telemetry {
+  align-items: flex-start;
+  padding: 16px 0 24px;
+  gap: 16px;
+}
+.telemetry .label {
+  font-size: 12px;
+}
+.distance {
+  margin-top: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.time {
+  width: 39%;
+}
+.time strong {
+  margin-top: 14px;
+}
+.time-track {
+  margin-top: 19px;
+  height: 4px;
+}
+.pace {
+  grid-column: 1;
+  padding: 16px 0;
+  gap: 15px;
+}
+.pace strong {
+  font-size: 36px;
+}
+.pace-bars i {
+  height: 30px;
+}
+.camera-panel {
+  border-radius: 12px;
+  background: radial-gradient(ellipse at 50% 85%, #2b403f 0%, #1b292d 66%);
+}
+.camera-empty {
+  inset: 35px 0 44px;
+}
+.camera-empty::before {
+  content: "";
+  position: absolute;
+  width: 76%;
+  height: 85%;
+  border: 1px solid #50635d;
+  border-radius: 75px 75px 10px 10px;
+  pointer-events: none;
+  opacity: 0.4;
+}
+.viewfinder svg {
+  width: 28px;
+  height: 28px;
+}
+.camera-empty h2 {
+  margin-block: 5px;
+  font-size: 30px;
+  position: relative;
+}
+.camera-empty p {
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+.camera-empty small {
+  margin-top: 8px;
+}
+.camera-bottom {
+  padding: 12px 18px;
+}
+.game-panel {
+  border-radius: 12px;
+}
+.game-toolbar {
+  min-height: 58px;
+  background: #202d30;
+  padding: 12px 22px;
+}
+.track-label {
+  font-size: 12px;
+  color: #dce1d5;
+}
+#warning {
+  font-size: 13px;
+  text-align: right;
+}
+#warning.urgent {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 25px;
+  letter-spacing: 0.02em;
+  color: #ffad80;
+}
+.game-bottom {
+  padding: 14px 22px;
+  background: #192427;
+}
+.game-actions button {
+  min-height: 44px;
+  padding-inline: 22px;
+}
+.keyboard-help {
+  gap: 9px;
+  font-size: 11px;
+}
+kbd {
+  background: #26373a;
+  padding: 4px 7px;
+  min-width: 27px;
+}
+.ticker p {
+  font-size: 14px;
+}
+.ticker > span:first-child::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--orange);
+  border-radius: 50%;
+  margin-right: 9px;
+}
+.demo-deck {
+  gap: 24px;
+  padding: 23px 0;
+}
+.demo-buttons button {
+  border-color: #3f5151;
+  padding: 10px 12px;
+}
+.demo-buttons button:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+button {
+  transition:
+    background 0.16s,
+    border-color 0.16s,
+    color 0.16s;
+}
+.mode-label {
+  padding: 6px 9px;
+  background: #21322d;
+  border: 0;
+}
+.connection {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.connection::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+@media (min-width: 1700px) {
   .top-grid {
-    height: 420px;
+    height: 306px;
   }
-  #game {
-    height: 360px;
-  }
-  .camera-empty p {
-    font-size: 14px;
-  }
-  .camera-empty h2 {
-    font-size: 38px;
-  }
-  .leader {
-    padding: 13px 10px;
+  .race-info {
+    gap: 0 40px;
   }
   .telemetry {
-    padding-bottom: 24px;
+    padding-top: 20px;
   }
-  .pace {
-    padding: 18px 0;
+  .leader {
+    padding-block: 11px;
+  }
+  .camera-empty p {
+    font-size: 13px;
+  }
+  .camera-empty h2 {
+    font-size: 36px;
   }
 }
-@media (max-width: 850px) {
-  header {
-    padding: 0 20px;
-    gap: 12px;
+@media (max-width: 1100px) {
+  .top-grid {
+    grid-template-columns: 0.85fr 1.15fr;
+    height: 335px;
+  }
+  .race-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .telemetry {
+    padding: 0 0 10px;
+  }
+  .distance {
+    font-size: 68px;
+    margin-top: 4px;
+  }
+  .time strong {
+    font-size: 40px;
+    margin-top: 4px;
+  }
+  .time-track {
+    margin-top: 12px;
+  }
+  .pace {
+    padding: 8px 0;
+  }
+  .pace strong {
+    font-size: 26px;
+  }
+  .leaderboard {
+    margin-top: 10px;
+    padding: 12px;
+    flex: 1;
+  }
+  .leaderboard .join-note {
+    padding-top: 8px;
+    margin-top: 8px;
+  }
+  #leaders {
+    margin-top: 6px;
+  }
+  .leader {
+    padding-block: 6px;
   }
   .tagline,
-  .session,
-  .connection {
-    display: none;
-  }
-  main {
-    padding: 0 20px;
-  }
-  .top-grid {
-    gap: 18px;
-    grid-template-columns: 1fr 1fr;
-  }
-  .game-toolbar {
-    flex-wrap: wrap;
-  }
-  .keyboard-help span {
+  .race-heading .session {
     display: none;
   }
   .demo-deck {
@@ -676,86 +921,131 @@ input {
   .switch-label {
     margin-left: auto;
   }
-  .distance {
-    font-size: 62px;
-  }
-  .pace {
-    gap: 10px;
-  }
-  .pace-bars {
-    gap: 2px;
+}
+@media (max-width: 700px) {
+  header {
+    padding: 0 18px;
+    height: 70px;
+    gap: 8px;
   }
   .wordmark {
     font-size: 28px;
   }
-  .game-toolbar > div {
-    gap: 8px;
+  .wordmark i {
+    display: none;
   }
-}
-@media (max-width: 600px) {
-  header {
-    height: 70px;
+  .connection {
+    display: none;
   }
   .header-actions {
     gap: 6px;
   }
   header button {
     font-size: 11px;
-    padding: 9px;
+    padding: 10px;
+  }
+  main {
+    padding: 0 16px;
+  }
+  .race-heading {
+    margin: 20px 0 16px;
+  }
+  .race-heading > div {
+    gap: 8px;
+  }
+  h1 {
+    font-size: 23px;
+  }
+  .mode-label {
+    font-size: 9px;
   }
   .top-grid {
     grid-template-columns: 1fr;
     height: auto;
+    gap: 16px;
   }
   .camera-panel {
-    height: 320px;
+    height: 286px;
   }
   .race-info {
-    min-height: 300px;
+    min-height: 350px;
   }
-  .race-heading {
-    margin-top: 20px;
+  .leaderboard {
+    min-height: 150px;
+    max-height: 240px;
   }
-  h1 {
-    font-size: 21px;
+  .telemetry {
+    padding: 0 0 12px;
   }
-  .mode-label {
-    font-size: 8px;
+  .distance {
+    font-size: 80px;
+  }
+  .time strong {
+    font-size: 48px;
   }
   .game-toolbar {
     padding: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .game-toolbar > div {
+    gap: 8px;
+    flex-wrap: wrap;
   }
   .track-label {
-    font-size: 8px;
+    font-size: 10px;
+  }
+  #warning {
+    text-align: left;
   }
   #game {
-    height: 250px;
+    height: 300px;
   }
   .game-bottom {
     padding: 12px;
     flex-wrap: wrap;
   }
+  .keyboard-help {
+    font-size: 10px;
+    gap: 6px;
+  }
+  .keyboard-help span {
+    display: none;
+  }
   .game-actions {
     width: 100%;
     justify-content: flex-end;
   }
-  .keyboard-help {
-    font-size: 9px;
-  }
-  footer {
-    gap: 12px;
-    font-size: 8px;
-  }
   .ticker {
     gap: 12px;
   }
+  .ticker p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
   .ticker > span:last-child {
     display: none;
+  }
+  .demo-deck {
+    gap: 16px;
   }
   .demo-deck > div:first-child {
     width: 100%;
   }
   .demo-deck p {
     max-width: none;
+  }
+  .demo-buttons {
+    gap: 7px;
+  }
+  footer {
+    font-size: 9px;
+    gap: 18px;
+    line-height: 1.5;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  button {
+    transition: none;
   }
 }
